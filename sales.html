@@ -1,0 +1,354 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sales Analysis - SliceOps AI</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1b1b1d",
+                        "on-secondary-fixed": "#410001",
+                        "surface-tint": "#adc6ff",
+                        "on-background": "#e4e2e4",
+                        "on-tertiary-fixed-variant": "#554600",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353437",
+                        "on-error": "#690005",
+                        "primary-container": "#4b8eff",
+                        "surface": "#131315",
+                        "tertiary-fixed": "#ffe171",
+                        "secondary-fixed-dim": "#ffb4aa",
+                        "on-tertiary": "#3b2f00",
+                        "inverse-primary": "#005bc1",
+                        "on-tertiary-container": "#4c3e00",
+                        "on-secondary-container": "#ffd2cc",
+                        "on-tertiary-fixed": "#221b00",
+                        "on-primary-fixed": "#001a41",
+                        "inverse-surface": "#e4e2e4",
+                        "primary": "#adc6ff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-bright": "#39393b",
+                        "on-primary-container": "#00285c",
+                        "secondary-container": "#c5020b",
+                        "surface-container": "#1f1f21",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "surface-container-lowest": "#0e0e10",
+                        "tertiary": "#e9c400",
+                        "error-container": "#93000a",
+                        "background": "#131315",
+                        "tertiary-container": "#c9a800",
+                        "on-secondary-fixed-variant": "#930005",
+                        "surface-container-high": "#2a2a2c",
+                        "outline-variant": "#414755",
+                        "on-primary-fixed-variant": "#004493",
+                        "on-surface": "#e4e2e4",
+                        "surface-container-highest": "#353437",
+                        "on-secondary": "#690003",
+                        "surface-dim": "#131315",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c1c6d7",
+                        "secondary": "#ffb4aa",
+                        "on-primary": "#002e69",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed": "#ffdad5",
+                        "inverse-on-surface": "#303032",
+                        "outline": "#8b90a0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "32px",
+                        "section-margin": "48px",
+                        "card-gap": "20px",
+                        "unit": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md h-screen w-screen overflow-hidden flex antialiased">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] border-r border-surface-variant bg-surface-container-lowest/80 backdrop-blur-xl flex flex-col p-6 space-y-8 z-50 shadow-none">
+<!-- Header -->
+<div class="flex flex-col gap-1">
+<h1 class="font-headline-lg text-headline-lg font-bold tracking-tight text-primary">SliceOps AI</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">n8n Engine Active</p>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-200 rounded-xl font-label-md text-label-md group" href="index.html">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-200 rounded-xl font-label-md text-label-md group" href="chats.html">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="forum">forum</span>
+                Live Chats
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary-container/10 rounded-xl font-bold font-label-md text-label-md" href="sales.html">
+<span class="material-symbols-outlined text-primary filled" data-icon="payments" data-weight="fill">payments</span>
+                Sales Analysis
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-200 rounded-xl font-label-md text-label-md group" href="automation.html">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="settings_input_component">settings_input_component</span>
+                Automation
+            </a>
+</nav>
+<!-- CTA -->
+<button class="w-full py-3 px-4 bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:bg-primary-fixed transition-colors font-bold shadow-sm">
+            Deploy Workflow
+        </button>
+<!-- Footer -->
+<div class="space-y-2 pt-4 border-t border-surface-variant/50">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help_outline">help_outline</span>
+                Help Center
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="manage_accounts">manage_accounts</span>
+                Account
+            </a>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-[280px] h-20 z-40 bg-surface/70 backdrop-blur-2xl border-b border-surface-variant/20 shadow-none flex justify-between items-center px-8 w-full transition-all">
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border border-surface-variant rounded-full pl-10 pr-4 py-2 text-on-surface font-label-md text-label-md focus:ring-2 focus:ring-primary/30 focus:border-primary/50 outline-none transition-all w-64 placeholder:text-on-surface-variant/50" placeholder="Search..." type="text">
+</div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface ml-4 border-l border-surface-variant pl-4">WhatsApp Automation</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="cloud_done">cloud_done</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest ml-4 overflow-hidden border border-surface-variant">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A minimal, sophisticated avatar image showing the letters 'AD' in a light blue color against a very dark gray background, representing an administrator profile in a high-end software interface. The styling is flat, modern, and perfectly circular, fitting within a premium dark mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCegZ55F70_VKzzqKyLmj6Jhs7tMhg1lcJzTru_T26PtGjdOv-VRY6ECKP6d1BAeEhmv6rN8m_48Lp_OCK709Z7-iuh8R9AsGXtIuZiSOgEpiyzfDTzYwcn7-clznj-rd3dwNmAaSioDx_zQhSlMnFhCBt-75mR2_nWqSBJA7zOnSf3t0b1YPiwynN6SaYjwRoiRYvyte4zXCPtRZ24QA0O0IdYb_twkByUjgjkqw2vDb_QIyLjZ1Cw8uluuREpINbmISk71XmngK0">
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[280px] mt-20 p-container-padding flex-1 overflow-y-auto h-[calc(100vh-80px)]">
+<div class="max-w-[1440px] mx-auto space-y-section-margin">
+<!-- Page Title -->
+<div class="flex items-end justify-between">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface">Sales Overview</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Real-time performance metrics for current shift.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded-lg border border-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">calendar_today</span>
+<span class="font-label-md text-label-md text-on-surface">Today, Oct 24</span>
+</div>
+</div>
+<!-- Top Section: KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-card-gap">
+<!-- Total Revenue Card -->
+<div class="bg-surface-container border border-surface-variant rounded-xl p-6 relative overflow-hidden backdrop-blur-xl group">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Revenue</h3>
+<span class="material-symbols-outlined text-primary p-2 bg-primary/10 rounded-lg">account_balance_wallet</span>
+</div>
+<div class="flex items-baseline gap-3">
+<span id="kpi-total-revenue" class="font-display-lg text-display-lg text-on-surface">$14.850.000</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center bg-primary/10 px-2 py-1 rounded-full border border-primary/20">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span> +12.5%
+                        </span>
+</div>
+</div>
+<!-- Average Order Value Card -->
+<div class="bg-surface-container border border-surface-variant rounded-xl p-6 relative overflow-hidden backdrop-blur-xl group">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Average Order Value</h3>
+<span class="material-symbols-outlined text-tertiary p-2 bg-tertiary/10 rounded-lg">receipt_long</span>
+</div>
+<div class="flex items-baseline gap-3">
+<span id="kpi-avg-order-value" class="font-display-lg text-display-lg text-on-surface">$38.200</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center px-2 py-1">vs $36.500 yesterday</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid: Chart & Table -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Chart: Ventas por Hora -->
+<div class="bg-surface-container border border-surface-variant rounded-xl p-6 backdrop-blur-xl col-span-1 flex flex-col">
+<div class="mb-6 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-surface">Ventas por Hora</h3>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<!-- CSS Bar Chart Representation -->
+<div class="flex-1 flex items-end justify-between gap-2 h-48 mt-auto border-b border-surface-variant/50 pb-2">
+<!-- Bar 1 -->
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-surface-variant group-hover:bg-primary/50 transition-colors rounded-t-sm h-[30%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-container-highest text-on-surface font-label-sm text-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-surface-variant pointer-events-none">$450.000</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">12p</span>
+</div>
+<!-- Bar 2 -->
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-surface-variant group-hover:bg-primary/50 transition-colors rounded-t-sm h-[50%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-container-highest text-on-surface font-label-sm text-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-surface-variant pointer-events-none">$800.000</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1p</span>
+</div>
+<!-- Bar 3 -->
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-surface-variant group-hover:bg-primary/50 transition-colors rounded-t-sm h-[20%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-container-highest text-on-surface font-label-sm text-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-surface-variant pointer-events-none">$320.000</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2p</span>
+</div>
+<!-- Bar 4 (Peak) -->
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/80 group-hover:bg-primary transition-colors rounded-t-sm h-[90%] relative shadow-[0_0_15px_rgba(173,198,255,0.2)]">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-on-primary font-label-sm text-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-primary pointer-events-none font-bold">$1.450.000</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">7p</span>
+</div>
+<!-- Bar 5 -->
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-surface-variant group-hover:bg-primary/50 transition-colors rounded-t-sm h-[70%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-container-highest text-on-surface font-label-sm text-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-surface-variant pointer-events-none">$1.100.000</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">8p</span>
+</div>
+<!-- Bar 6 -->
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-surface-variant group-hover:bg-primary/50 transition-colors rounded-t-sm h-[40%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-container-highest text-on-surface font-label-sm text-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-surface-variant pointer-events-none">$600.000</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">9p</span>
+</div>
+</div>
+</div>
+<!-- Table: Transacciones Recientes -->
+<div class="bg-surface-container border border-surface-variant rounded-xl backdrop-blur-xl col-span-1 lg:col-span-2 overflow-hidden flex flex-col">
+<div class="p-6 border-b border-surface-variant/50 flex justify-between items-center bg-surface-container-low/50">
+<h3 class="font-headline-md text-headline-md text-on-surface">Transacciones Recientes</h3>
+<button class="text-primary hover:text-primary-fixed transition-colors font-label-md text-label-md flex items-center gap-1">
+                            View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant/50 bg-surface-container-lowest/30">
+<th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Order ID</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Customer</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Items</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Amount</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody id="recent-transactions-tbody" class="font-body-md text-body-md text-on-surface divide-y divide-surface-variant/30">
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm">#ORD-9921</td>
+<td class="px-6 py-4">Maria Gonzalez</td>
+<td class="px-6 py-4 text-on-surface-variant">2x Pepperoni, 1x Soda</td>
+<td class="px-6 py-4 font-medium">$42.500</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
+                                            Completed
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm">#ORD-9922</td>
+<td class="px-6 py-4">James Smith</td>
+<td class="px-6 py-4 text-on-surface-variant">1x Margherita, 1x Garlic Bread</td>
+<td class="px-6 py-4 font-medium">$28.000</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-tertiary/10 text-tertiary border border-tertiary/20">
+                                            Processing
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm">#ORD-9923</td>
+<td class="px-6 py-4">Delivery App P.</td>
+<td class="px-6 py-4 text-on-surface-variant">3x Meat Lovers, 2x Wings</td>
+<td class="px-6 py-4 font-medium">$85.000</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-variant text-on-surface-variant border border-outline-variant/50">
+                                            Paid
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm">#ORD-9924</td>
+<td class="px-6 py-4">Carlos R.</td>
+<td class="px-6 py-4 text-on-surface-variant">1x Veggie Supreme</td>
+<td class="px-6 py-4 font-medium">$22.000</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
+                                            Completed
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/sales.js"></script>
+</body></html>
