@@ -1,0 +1,380 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SliceOps AI - Automation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#1b1b1d",
+                        "on-secondary-fixed": "#410001",
+                        "surface-tint": "#adc6ff",
+                        "on-background": "#e4e2e4",
+                        "on-tertiary-fixed-variant": "#554600",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353437",
+                        "on-error": "#690005",
+                        "primary-container": "#4b8eff",
+                        "surface": "#131315",
+                        "tertiary-fixed": "#ffe171",
+                        "secondary-fixed-dim": "#ffb4aa",
+                        "on-tertiary": "#3b2f00",
+                        "inverse-primary": "#005bc1",
+                        "on-tertiary-container": "#4c3e00",
+                        "on-secondary-container": "#ffd2cc",
+                        "on-tertiary-fixed": "#221b00",
+                        "on-primary-fixed": "#001a41",
+                        "inverse-surface": "#e4e2e4",
+                        "primary": "#adc6ff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-bright": "#39393b",
+                        "on-primary-container": "#00285c",
+                        "secondary-container": "#c5020b",
+                        "surface-container": "#1f1f21",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "surface-container-lowest": "#0e0e10",
+                        "tertiary": "#e9c400",
+                        "error-container": "#93000a",
+                        "background": "#131315",
+                        "tertiary-container": "#c9a800",
+                        "on-secondary-fixed-variant": "#930005",
+                        "surface-container-high": "#2a2a2c",
+                        "outline-variant": "#414755",
+                        "on-primary-fixed-variant": "#004493",
+                        "on-surface": "#e4e2e4",
+                        "surface-container-highest": "#353437",
+                        "on-secondary": "#690003",
+                        "surface-dim": "#131315",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c1c6d7",
+                        "secondary": "#ffb4aa",
+                        "on-primary": "#002e69",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed": "#ffdad5",
+                        "inverse-on-surface": "#303032",
+                        "outline": "#8b90a0"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    spacing: {
+                        "container-padding": "32px",
+                        "section-margin": "48px",
+                        "card-gap": "20px",
+                        "unit": "8px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    fontSize: {
+                        "label-md": ["14px", { lineHeight: "1.2", letterSpacing: "0.01em", fontWeight: "500" }],
+                        "headline-lg-mobile": ["28px", { lineHeight: "1.2", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+                        "label-sm": ["12px", { lineHeight: "1.2", fontWeight: "600" }],
+                        "body-lg": ["18px", { lineHeight: "1.5", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(28, 28, 30, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(56, 56, 58, 0.4);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #353437; border-radius: 20px; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-hidden h-screen flex">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-[280px] border-r border-surface-variant bg-surface-container-lowest/80 backdrop-blur-xl border-surface-variant/30 shadow-none z-50">
+<div class="flex flex-col h-full p-6 space-y-8">
+<!-- Header -->
+<div class="flex items-center gap-4 px-2">
+<div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary font-bold" style="font-variation-settings: 'FILL' 1;">local_pizza</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-lg text-headline-lg font-bold tracking-tight text-primary dark:text-primary leading-tight">SliceOps AI</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">n8n Engine Active</span>
+</div>
+</div>
+<!-- Primary Navigation -->
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-200 rounded-xl font-label-md text-label-md" href="index.html">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-200 rounded-xl font-label-md text-label-md" href="chats.html">
+<span class="material-symbols-outlined text-[20px]">forum</span>
+                    Live Chats
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-200 rounded-xl font-label-md text-label-md" href="sales.html">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+                    Sales Analysis
+                </a>
+<!-- Active Item -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary-container/10 rounded-xl font-bold font-label-md text-label-md scale-95 transition-transform duration-150" href="automation.html">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">settings_input_component</span>
+                    Automation
+                </a>
+</nav>
+<!-- Bottom Section -->
+<div class="space-y-4">
+<button class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary text-on-primary rounded-xl font-label-md text-label-md font-bold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+                    Deploy Workflow
+                </button>
+<div class="pt-4 border-t border-surface-variant/50 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-200 rounded-xl font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+                        Help Center
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-200 rounded-xl font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+                        Account
+                    </a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-[280px] flex flex-col h-full bg-background relative">
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-[280px] h-20 z-40 bg-surface/70 dark:bg-surface/70 backdrop-blur-2xl border-b border-surface-variant/20 shadow-none">
+<div class="flex justify-between items-center px-8 w-full h-full">
+<!-- Left: Title & Search -->
+<div class="flex items-center gap-8 flex-1">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">WhatsApp Automation</h1>
+<div class="relative w-64 hidden lg:block group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container h-10 pl-10 pr-4 rounded-full border-none text-on-surface font-body-md focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-on-surface-variant/60" placeholder="Search flows..." type="text">
+</div>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors focus:ring-2 focus:ring-primary/30 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors focus:ring-2 focus:ring-primary/30 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors focus:ring-2 focus:ring-primary/30 transition-all mr-4">
+<span class="material-symbols-outlined">cloud_done</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant cursor-pointer">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A minimalist, flat-design avatar representing an administrator. The avatar features a simple, stylized human silhouette against a dark, near-black background. Subtle accents in a soft, luminescent blue provide a high-tech, professional aesthetic consistent with a premium dark-mode software interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiaZAu_rUoY-zG3vD4zORpQPzZE5JZkx1RBWMLeyVZapD4KFN4RoBX3NGyiShEG5MY625GiLsepFsZCBYWPu6qZ8umUXO74sjayQDLqRjh8Xog1Kg_isgg4YZNRZxFinIdkyLjItQe4qiCqfbyv65OGIuzOcm3PhsdxCp1NKBr43ihuQ4EO_Wokpn2UayYtF0lANdHBgzxAGOOAXWwbkHuDyHM5XdzySu53ocd7eubI7rb5bahntBEU_ScsAQ6wCM1uYdp_60gzGA">
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-section-margin pt-32 w-full max-w-[1440px] mx-auto">
+<!-- Page Header -->
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">System &amp; Workflow Settings</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage active triggers and AI configurations.</p>
+</div>
+<button class="h-12 px-6 bg-primary-container text-on-primary-container hover:bg-primary-container/90 rounded-full font-label-md text-label-md font-bold flex items-center gap-2 transition-all shadow-lg shadow-primary-container/20">
+<span class="material-symbols-outlined">rocket_launch</span>
+                    Deploy Changes
+                </button>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column (Status & Settings) -->
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-gutter">
+<!-- Bento Status Indicators -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-card-gap">
+<!-- n8n Engine -->
+<div class="glass-panel rounded-3xl p-6 flex flex-col justify-between aspect-square md:aspect-auto md:h-40 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="flex justify-between items-start z-10">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-[24px]">settings_input_component</span>
+</div>
+<span class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                    Operational
+                                </span>
+</div>
+<div class="z-10 mt-auto">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">n8n Engine</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Core processing unit</p>
+</div>
+</div>
+<!-- WhatsApp API -->
+<div class="glass-panel rounded-3xl p-6 flex flex-col justify-between aspect-square md:aspect-auto md:h-40 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="flex justify-between items-start z-10">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-on-surface text-[24px]">chat</span>
+</div>
+<span class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                    Connected
+                                </span>
+</div>
+<div class="z-10 mt-auto">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">WhatsApp API</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Meta Graph v18.0</p>
+</div>
+</div>
+<!-- Database -->
+<div class="glass-panel rounded-3xl p-6 flex flex-col justify-between aspect-square md:aspect-auto md:h-40 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="flex justify-between items-start z-10">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-on-surface text-[24px]">database</span>
+</div>
+<span class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-variant border border-outline-variant/50 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
+                                    Syncing
+                                </span>
+</div>
+<div class="z-10 mt-auto">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Database</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Read replica active</p>
+</div>
+</div>
+</div>
+<!-- Configuration Toggles -->
+<div class="glass-panel rounded-3xl p-1 flex flex-col">
+<div class="p-6 border-b border-surface-variant/30 flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Behavior Configuration</h3>
+<span class="material-symbols-outlined text-on-surface-variant">tune</span>
+</div>
+<div class="flex flex-col">
+<!-- Toggle Item 1 -->
+<div class="flex items-center justify-between p-6 border-b border-surface-variant/30 hover:bg-surface-container-high/20 transition-colors">
+<div class="flex flex-col mr-8">
+<span class="font-body-lg text-body-lg font-medium text-on-surface">Auto-reply</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-1">Automatically send predefined greetings to new incoming numbers.</span>
+</div>
+<button aria-checked="true" class="w-14 h-8 rounded-full bg-primary relative transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 shrink-0" role="switch">
+<span class="absolute left-1 top-1 w-6 h-6 bg-surface-lowest rounded-full transition-transform translate-x-6 shadow-sm"></span>
+</button>
+</div>
+<!-- Toggle Item 2 -->
+<div class="flex items-center justify-between p-6 border-b border-surface-variant/30 hover:bg-surface-container-high/20 transition-colors">
+<div class="flex flex-col mr-8">
+<span class="font-body-lg text-body-lg font-medium text-on-surface">AI Smart Suggestions</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-1">Use LLM to draft responses for complex customer inquiries before sending.</span>
+</div>
+<button aria-checked="true" class="w-14 h-8 rounded-full bg-primary relative transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 shrink-0" role="switch">
+<span class="absolute left-1 top-1 w-6 h-6 bg-surface-lowest rounded-full transition-transform translate-x-6 shadow-sm"></span>
+</button>
+</div>
+<!-- Toggle Item 3 -->
+<div class="flex items-center justify-between p-6 hover:bg-surface-container-high/20 transition-colors rounded-b-3xl">
+<div class="flex flex-col mr-8">
+<span class="font-body-lg text-body-lg font-medium text-on-surface">Order Confirmation</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-1">Require manual staff approval before dispatching payment links via bot.</span>
+</div>
+<button aria-checked="false" class="w-14 h-8 rounded-full bg-surface-variant relative transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 shrink-0" role="switch">
+<span class="absolute left-1 top-1 w-6 h-6 bg-surface-lowest rounded-full transition-transform shadow-sm"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Log View) -->
+<div class="col-span-12 xl:col-span-4 flex flex-col">
+<div class="glass-panel rounded-3xl flex flex-col h-full min-h-[600px]">
+<div class="p-6 border-b border-surface-variant/30 flex justify-between items-center bg-surface-container-high/10 rounded-t-3xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">terminal</span>
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Execution Log</h3>
+</div>
+<button class="text-primary hover:text-primary-container font-label-sm text-label-sm transition-colors">Clear</button>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-2">
+<ul id="execution-log-container" class="flex flex-col space-y-1">
+<!-- Log Item -->
+<li class="flex flex-col p-3 rounded-xl hover:bg-surface-container-highest/20 transition-colors">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:42:15 AM</span>
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Webhook Recibido</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate mt-0.5">Payload: {"type": "message", "from": "123..."}</span>
+</li>
+<!-- Log Item -->
+<li class="flex flex-col p-3 rounded-xl hover:bg-surface-container-highest/20 transition-colors bg-surface-container-high/10">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:42:16 AM</span>
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Clasificación de Intención por IA</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate mt-0.5">Intent: 'order_status' (Confidence: 0.98)</span>
+</li>
+<!-- Log Item -->
+<li class="flex flex-col p-3 rounded-xl hover:bg-surface-container-highest/20 transition-colors">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:42:18 AM</span>
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Consulta de Base de Datos</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate mt-0.5">SELECT status FROM orders WHERE phone_id...</span>
+</li>
+<!-- Log Item Error -->
+<li class="flex flex-col p-3 rounded-xl hover:bg-error-container/10 transition-colors border border-error/10 bg-error/5 mt-2">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-sm text-label-sm text-error/80">10:45:02 AM</span>
+<span class="material-symbols-outlined text-[16px] text-error">error</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Límite de API Excedido</span>
+<span class="font-body-md text-body-md text-error/80 truncate mt-0.5">WhatsApp API returned 429 Too Many Requests. Retrying in 5s...</span>
+</li>
+<!-- Log Item -->
+<li class="flex flex-col p-3 rounded-xl hover:bg-surface-container-highest/20 transition-colors mt-2">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:46:10 AM</span>
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Mensaje Enviado</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate mt-0.5">Template: 'promo_blast_v2' successfully queued.</span>
+</li>
+</ul>
+</div>
+<div class="p-4 border-t border-surface-variant/30 bg-surface-container-lowest/30 rounded-b-3xl">
+<button class="w-full py-2.5 rounded-xl border border-outline-variant/50 text-on-surface hover:bg-surface-container hover:border-outline-variant transition-all font-label-md text-label-md flex justify-center items-center gap-2"><span class="material-symbols-outlined text-[18px]">open_in_new</span>Ver Todos los Registros</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/automation.js"></script>
+</body></html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SliceOps AI - Main Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#1b1b1d",
+                        "on-secondary-fixed": "#410001",
+                        "surface-tint": "#adc6ff",
+                        "on-background": "#e4e2e4",
+                        "on-tertiary-fixed-variant": "#554600",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353437",
+                        "on-error": "#690005",
+                        "primary-container": "#4b8eff",
+                        "surface": "#131315",
+                        "tertiary-fixed": "#ffe171",
+                        "secondary-fixed-dim": "#ffb4aa",
+                        "on-tertiary": "#3b2f00",
+                        "inverse-primary": "#005bc1",
+                        "on-tertiary-container": "#4c3e00",
+                        "on-secondary-container": "#ffd2cc",
+                        "on-tertiary-fixed": "#221b00",
+                        "on-primary-fixed": "#001a41",
+                        "inverse-surface": "#e4e2e4",
+                        "primary": "#adc6ff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-bright": "#39393b",
+                        "on-primary-container": "#00285c",
+                        "secondary-container": "#c5020b",
+                        "surface-container": "#1f1f21",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "surface-container-lowest": "#0e0e10",
+                        "tertiary": "#e9c400",
+                        "error-container": "#93000a",
+                        "background": "#131315",
+                        "tertiary-container": "#c9a800",
+                        "on-secondary-fixed-variant": "#930005",
+                        "surface-container-high": "#2a2a2c",
+                        "outline-variant": "#414755",
+                        "on-primary-fixed-variant": "#004493",
+                        "on-surface": "#e4e2e4",
+                        "surface-container-highest": "#353437",
+                        "on-secondary": "#690003",
+                        "surface-dim": "#131315",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c1c6d7",
+                        "secondary": "#ffb4aa",
+                        "on-primary": "#002e69",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed": "#ffdad5",
+                        "inverse-on-surface": "#303032",
+                        "outline": "#8b90a0"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "container-padding": "32px",
+                        "section-margin": "48px",
+                        "card-gap": "20px",
+                        "unit": "8px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    fontSize: {
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(28, 28, 30, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid #38383a;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] border-r border-surface-variant bg-surface-container-lowest/80 backdrop-blur-xl border-surface-variant/30 shadow-none z-50 flex flex-col p-6 space-y-8">
+<div class="flex items-center gap-4 px-2">
+<img alt="Pizza Automation System Logo" class="w-10 h-10 rounded-xl object-cover" data-alt="A sleek, modern high-end logo for a pizza automation company. The logo features a minimalist geometric representation of a pizza slice combined with subtle robotic or circuit-like lines, rendered in pure white against a brilliant, glowing primary blue (#007AFF) background. The style is hyper-clean and corporate, fitting an advanced software-as-a-service product in a dark mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp9Iu45hl-b_qGg6t26NHu9FoL2KEfFNjxmUibhuZpogkJJM0zXuDexiKeQ7l4Lvq6pXQDWR88yjwuC4M1hfreM2B9vL3-ys8W80leN0hduO2ExPmdDIoRqlarW_XFJkOGQYCQrYbVrC7TUgkAPVt9pKMSyaD_kTgPjrPvGDFxr0SMXKU1VTZfWEAw6zaev6OoI8zosjYUBONu3EnE5fHUwO_l2uZjcNY5jAw6DuEu8_fpicNeQ7j4SmxKbL38jtoNJLEX7kyjQow">
+<div>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary dark:text-primary">SliceOps AI</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">n8n Engine Active</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary-container/10 rounded-xl font-bold scale-95 transition-transform duration-150" href="index.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface transition-all hover:bg-surface-container-high/50 duration-200 rounded-xl" href="chats.html">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-md text-label-md">Live Chats</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface transition-all hover:bg-surface-container-high/50 duration-200 rounded-xl" href="sales.html">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Sales Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface transition-all hover:bg-surface-container-high/50 duration-200 rounded-xl" href="automation.html">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="font-label-md text-label-md">Automation</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full bg-[#007AFF] hover:bg-blue-600 text-white font-label-md text-label-md py-3 rounded-xl transition-colors font-bold h-12">Deploy Workflow</button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface transition-all hover:bg-surface-container-high/50 duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface transition-all hover:bg-surface-container-high/50 duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-[280px] h-20 z-40 bg-surface/70 dark:bg-surface/70 backdrop-blur-2xl border-b border-surface-variant/20 shadow-none flex justify-between items-center px-8">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">WhatsApp Automation</h2>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-[#0A0A0A] border border-surface-variant text-on-surface font-body-md text-body-md rounded-xl pl-10 pr-4 py-2 w-64 focus:outline-none focus:ring-1 focus:ring-[#007AFF] focus:border-[#007AFF] transition-all" placeholder="Search orders, numbers..." type="text">
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors focus:ring-2 focus:ring-primary/30">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors focus:ring-2 focus:ring-primary/30">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest/40 rounded-full p-2 transition-colors focus:ring-2 focus:ring-primary/30">
+<span class="material-symbols-outlined">cloud_done</span>
+</button>
+</div>
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full border border-surface-variant ml-2" data-alt="A minimalist, professional avatar image for a system administrator. The image features a simple, stylized human silhouette or geometric abstract form in cool grey tones against a very dark charcoal background. The styling is sleek and unobtrusive, perfectly matching a high-end, dark-mode software interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzwwW56Joo0MwkTWL2sXAd8GEr3FFSPrFCEvt0uT23X6Xy5Fgbo9crb0fmb-6cyQIxZO5MHebYX38M1HaT0ficX0gYqc2rOp31F8nIWEHqitlr5fRqZJnPf8SxjYFbjq2LJCjmEEdOVB-5ZlCiNxGyzHnL5a2Ary5jtB-UBERettgVcr3cqOvFZPMtR-y5MLmYte9EM7bFXnyFo7wvSn-GkkmugSuwvgz5b0zUQErJRxEWb7wDzg9hctbZ7I_KHC9_rdRKb4K4xdw">
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-[280px] pt-20 p-8 w-full">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Key Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Metric 1 -->
+<div class="glass-card rounded-[20px] p-6 flex flex-col justify-between h-32 hover:bg-surface-container-high/30 transition-colors cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant">Chats en Vivo</span>
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary text-sm">forum</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span id="kpi-chats-vivo" class="font-display-lg text-display-lg text-on-surface">42</span>
+<span class="font-label-sm text-label-sm text-emerald-400 mb-2 flex items-center"><span class="material-symbols-outlined text-[16px]">arrow_upward</span> 12%</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="glass-card rounded-[20px] p-6 flex flex-col justify-between h-32 hover:bg-surface-container-high/30 transition-colors cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant">Chats Respondidos</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center border border-surface-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">done_all</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span id="kpi-chats-respondidos" class="font-display-lg text-display-lg text-on-surface">1,284</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-2">Today</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="glass-card rounded-[20px] p-6 flex flex-col justify-between h-32 hover:bg-surface-container-high/30 transition-colors cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant">Ventas Totales</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center border border-surface-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">attach_money</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span id="kpi-ventas-totales" class="font-display-lg text-display-lg text-on-surface">$4.250.000</span>
+<span class="font-label-sm text-label-sm text-emerald-400 mb-2 flex items-center"><span class="material-symbols-outlined text-[16px]">arrow_upward</span> 8%</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="glass-card rounded-[20px] p-6 flex flex-col justify-between h-32 hover:bg-surface-container-high/30 transition-colors cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant">Chats Abandonados</span>
+<div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center border border-error/20">
+<span class="material-symbols-outlined text-error text-sm">call_missed</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span id="kpi-chats-abandonados" class="font-display-lg text-display-lg text-error">12</span>
+<span class="font-label-sm text-label-sm text-error mb-2 flex items-center"><span class="material-symbols-outlined text-[16px]">warning</span> Action Req.</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout for Chart & List -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[400px]">
+<!-- Large Chart Area -->
+<div class="lg:col-span-2 glass-card rounded-[20px] p-6 flex flex-col h-full">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Actividad de Chats</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface-container-high border border-surface-variant rounded-lg font-label-sm text-label-sm text-on-surface">24h</button>
+<button class="px-3 py-1 bg-transparent hover:bg-surface-container border border-transparent rounded-lg font-label-sm text-label-sm text-on-surface-variant">7d</button>
+</div>
+</div>
+<!-- Faux Chart Representation -->
+<div class="flex-1 relative w-full flex items-end justify-between px-2 pb-4">
+<!-- Y-axis lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20 z-0">
+<div class="w-full border-b border-surface-variant"></div>
+<div class="w-full border-b border-surface-variant"></div>
+<div class="w-full border-b border-surface-variant"></div>
+<div class="w-full border-b border-surface-variant"></div>
+<div class="w-full border-b border-surface-variant"></div>
+</div>
+<!-- Chart Bars (Stylized) -->
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[30%] relative z-10 border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[45%] relative z-10 border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[25%] relative z-10 border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[60%] relative z-10 border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[80%] relative z-10 border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/50 hover:bg-primary/70 transition-colors rounded-t-sm h-[95%] relative z-10 border-t border-primary"></div>
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[70%] relative z-10 border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[50%] relative z-10 border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[35%] relative z-10 border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[40%] relative z-10 border-t border-primary/50"></div>
+</div>
+</div>
+<!-- Latest Chats List -->
+<div class="glass-card rounded-[20px] p-6 flex flex-col h-full overflow-hidden">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Últimos Chats</h3>
+<button class="text-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+<div id="latest-chats-container" class="flex-1 overflow-y-auto pr-2 space-y-4">
+<!-- Chat Item 1 -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer border border-transparent hover:border-surface-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">+52 55 1234 5678</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate w-32">Quiero una pizza de...</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary font-label-sm text-[10px] uppercase tracking-wider">Bot</span>
+</div>
+<!-- Chat Item 2 -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer border border-transparent hover:border-surface-variant bg-surface-container/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">+1 305 987 6543</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate w-32">Hola, mi pedido está retrasado...</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-secondary-container/20 border border-secondary-container/30 text-secondary font-label-sm text-[10px] uppercase tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                                Human
+                            </span>
+</div>
+<!-- Chat Item 3 -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer border border-transparent hover:border-surface-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">+54 11 4321 8765</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate w-32">Gracias!</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-surface-container-high border border-surface-variant text-on-surface-variant font-label-sm text-[10px] uppercase tracking-wider">Active</span>
+</div>
+<!-- Chat Item 4 -->
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer border border-transparent hover:border-surface-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">+34 600 123 456</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate w-32">Aceptan tarjeta?</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary font-label-sm text-[10px] uppercase tracking-wider">Bot</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/dashboard.js"></script>
+</body></html>
